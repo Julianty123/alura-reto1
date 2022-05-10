@@ -380,20 +380,25 @@ input.button:focus {
     color: wheat;
     margin-left: 50px;
     font-size: 22px;
+    font-style: oblique;
     white-space: nowrap;
     border-right: 4px solid;
-    width: 18ch; /* Tamaño de la frase */
-    animation: typing 3s steps(18), blink 0.5s step-end alternate;
+    width: 18ch; /* Tamaño de la frase (inicia desde 0) */
+    animation: typing 3.5s steps(18), blink 0.5s step-end alternate;
+    animation-iteration-count: infinite;  /* Repite la animación */
     overflow: hidden;
 }
 
 @keyframes typing {
     from { 
-        width: 0 
+        width: 0;
+    }
+    50% {
+        width: 18ch; /* Genera un delay para iniciar la animacion otra vez, wtf*/
     }
     to{ 
         width: 100;
-        color: black; /* Da un efecto de cambio de color */
+        color: white; /* Con el pasar del tiempo el texto se va tornando blanco */
     }
 }
 

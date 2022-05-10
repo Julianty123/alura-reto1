@@ -1,13 +1,30 @@
-;(function() {
+; (function () {
     const entrada = document.querySelector('#entrada');
     const barra = document.querySelector('.barra-lateral');
-    
+
     var salida;
+    
+    /* https://developer.mozilla.org/es/docs/Web/CSS/CSS_Animations/Using_CSS_animations */
+
+    let flag = false;
+    function listener(event) {
+        console.log(event.animationName);
+        if(event.animationName == "typing" && flag == false){
+            console.log("se pasa a true");
+            flag = true;
+        }
+        else if(event.animationName == "typing" && flag == true){
+            console.log("deberia reiniciarse");
+            flag = false;
+        }
+    }
+
+
 
     function crearSalida() {
         const elem = document.querySelector('#salida');
         const child = document.createTextNode('');
-        
+
         elem.innerHTML = ''; // Borra todo los childNodes
         elem.appendChild(child); // Hace del textNode único hijo
         // Se trabaja la salida como textNode para evitar basura 
@@ -15,25 +32,25 @@
         salida = child;
     };
     crearSalida();
-    
+
     // Exportaciones (usa variables globales)
     window.uiCodificar = uiCodificar;
     window.uiDecodificar = uiDecodificar;
     window.uiCopiar = uiCopiar;
-    
+
     entrada.oninput = uiSoloLetras;
-    
+
     function Cod(x) {
-        switch(x) {
+        switch (x) {
             case 'e': return 'enter';
             case 'i': return 'imes';
             case 'a': return 'ai';
             case 'o': return 'ober';
             case 'u': return 'ufat';
-            default : return x;
+            default: return x;
         }
     }
-    
+
     function codificar(s) {
         var r = '';
         for (const c of s) {
@@ -41,50 +58,50 @@
         }
         return r;
     }
-    
+
     function error() {
         throw new SyntaxError('codificación inválida');
     }
-    
+
     function decodificar(s) {
         var r = ''
         for (var j = 0; j < s.length;) {
-            switch(s[j]) {
-            case 'e':
-                if (s[j + 4] === 'r') { r += s[j]; j += 5 }
-                else { error() }
-                break
-            case 'i':
-                if (s[j + 3] === 's') { r += s[j]; j += 4 }
-                else { error() }
-                break
-            case 'a':
-                if (s[j + 1] === 'i') { r += s[j]; j += 2 }
-                else { error()}
-                break
-            case 'o':
-                if (s[j + 3] === 'r') { r += s[j]; j += 4 }
-                else { error() }
-                break
-            case 'u':
-                if (s[j + 3] === 't') { r += s[j]; j += 4 }
-                else { error() }
-                break
-            default:
-                r += s[j++]
+            switch (s[j]) {
+                case 'e':
+                    if (s[j + 4] === 'r') { r += s[j]; j += 5 }
+                    else { error() }
+                    break
+                case 'i':
+                    if (s[j + 3] === 's') { r += s[j]; j += 4 }
+                    else { error() }
+                    break
+                case 'a':
+                    if (s[j + 1] === 'i') { r += s[j]; j += 2 }
+                    else { error() }
+                    break
+                case 'o':
+                    if (s[j + 3] === 'r') { r += s[j]; j += 4 }
+                    else { error() }
+                    break
+                case 'u':
+                    if (s[j + 3] === 't') { r += s[j]; j += 4 }
+                    else { error() }
+                    break
+                default:
+                    r += s[j++]
             }
         }
         return r;  // si no hay error, devuelve el resultado 
     }
-    
+
     function mostrarResultado() {
         barra.classList.add('con-salida');
     }
-    
+
     function ocultarResultado() {
         barra.classList.remove('con-salida');
     }
-    
+
     const kUnAllowed = /[^a-z ]/g;
     function uiSoloLetras(ev) {
         const { inputType, target, data } = ev
@@ -96,7 +113,7 @@
                 target.value = value.substring(0, value.length - 1);
                 alert('solo letras minúsculas y sin acentos');
             }
-        } else if(inputType === 'insertFromPaste') {
+        } else if (inputType === 'insertFromPaste') {
             let value = data || target.value || '';
             value = value.toLowerCase();
             target.value = value.replace(kUnAllowed, '');
@@ -105,7 +122,7 @@
             }
         }
     }
-    
+
     function uiDecodificar() {
         var txt = entrada.value;
         entrada.value = '';
@@ -114,14 +131,14 @@
             ocultarResultado();
         } else {
             try {
-            salida.nodeValue = decodificar(txt);
-            } catch(O_o) {
+                salida.nodeValue = decodificar(txt);
+            } catch (O_o) {
                 salida.nodeValue = 'Error: no se pudo decodificar porque la cadena no es válida';
             }
             mostrarResultado();
         }
     }
-    
+
     function uiCodificar() {
         var txt = entrada.value;
         entrada.value = '';
@@ -133,14 +150,14 @@
             mostrarResultado();
         }
     }
-    
+
     const kClipboard = navigator.clipboard;
     function uiCopiar() {
         if (kClipboard) {
             kClipboard
-            .writeText(salida.nodeValue)
-            .then(() => alert('copiado'))
+                .writeText(salida.nodeValue)
+                .then(() => alert('copiado'))
         }
     }
-    
+
 }())
