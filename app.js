@@ -3,17 +3,18 @@
     const barra = document.querySelector('.barra-lateral');
 
     var salida;
-    
+
     /* https://developer.mozilla.org/es/docs/Web/CSS/CSS_Animations/Using_CSS_animations */
+    /* https://developer.mozilla.org/es/docs/Web/CSS/Using_CSS_custom_properties */
 
     let flag = false;
     function listener(event) {
         console.log(event.animationName);
-        if(event.animationName == "typing" && flag == false){
+        if (event.animationName == "typing" && flag == false) {
             console.log("se pasa a true");
             flag = true;
         }
-        else if(event.animationName == "typing" && flag == true){
+        else if (event.animationName == "typing" && flag == true) {
             console.log("deberia reiniciarse");
             flag = false;
         }
@@ -156,8 +157,25 @@
         if (kClipboard) {
             kClipboard
                 .writeText(salida.nodeValue)
-                .then(() => alert('copiado'))
+                .then(() => alert('copiado'));
         }
     }
 
+    const btnSwitch = document.querySelector("#switch-mode");
+    const txtArea = document.querySelector("#entrada");
+    const barraLateral = document.querySelector(".barra-lateral");
+    btnSwitch.addEventListener('click', () => {
+        document.body.classList.toggle("pink"); // Agrega una clase a la etiqueta body
+        btnSwitch.classList.toggle("switch-pink");
+
+        // Necesario para cambiar de color los otros elementos
+        if(!txtArea.classList.contains("txtArea-pink")){
+            txtArea.classList.add("txtArea-pink");
+            barraLateral.classList.add("pink");
+        }
+        else{
+            txtArea.classList.remove("txtArea-pink");
+            barraLateral.classList.remove("pink");
+        }
+    });
 }())

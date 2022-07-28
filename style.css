@@ -37,7 +37,7 @@ ol,
 ul {
     margin: 0;
     padding: 0;
-    font-weight: normal;
+    /* font-weight: normal; */
 }
 
 ol,
@@ -144,6 +144,13 @@ body {
     box-shadow: 7px 7px 30px black, -7px -7px 20px rgba(255,171,1,255); /* Aplica un efecto de sombras cool! */
 }
 
+#entrada.txtArea-pink{
+    color: white;
+    border: solid 1px pink;
+    filter: drop-shadow(7px 7px 5px black);
+    box-shadow: 7px 7px 30px black, -7px -7px 20px pink;
+}
+
 ::placeholder {
     color: rgb(245, 222, 179, .6); /* .6 Aplica opacidad*/
 }
@@ -179,7 +186,7 @@ input.button {
 input.button:hover,
 input.button:focus {
     background-color: rgba(255,171,1,255);
-    color: #fff;
+    color: black;
     border: solid 1px #000;
 }
 
@@ -192,6 +199,13 @@ input.button:focus {
     color: wheat;
     filter: drop-shadow(7px 7px 5px black);
     box-shadow: 7px 7px 30px black, -7px -7px 20px rgba(255,171,1,255);
+}
+
+.barra-lateral.pink { /* ver .js (se agrega una clase al html llamada pink)*/
+    border: solid 1px pink;
+    color: white;
+    filter: drop-shadow(7px 7px 5px black);
+    box-shadow: 7px 7px 30px black, -7px -7px 20px pink;
 }
 
 .my-auto {
@@ -209,6 +223,7 @@ input.button:focus {
     display: inline-block;
     background: url('./images/exclamation.png');
     margin: 0px 0.5rem;
+    animation: bounce 2s infinite; /* bounce es el nombre de la animacion (debe crearse) */
 }
 
 .info-txt strong{
@@ -306,21 +321,32 @@ input.button:focus {
     .barra-lateral {
         width: 30%;
     }
+
+    body{
+        height: 100vh;
+    }
 }
 /* Resolucion 8k: 7680 x 4320 */
 @media all and (max-width: 7680px) {
-    body {
+    body{
         height: 100vh;
         grid-column: 1 / 4;
-    
-        background: -webkit-linear-gradient(90deg,#000000,rgba(255,171,1,255), #000000,rgba(255,171,1,255));
+        background: -webkit-linear-gradient(90deg,#000000,rgba(255,171,1,255), #000000, rgba(255,171,1,255));
         animation: myani 7s ease-out infinite;
-        /* background: linear-gradient(-45deg,#EE7752,#E73C7E, #1478d0,#EE7752,#E73C7E ); */
-        /* background: -moz-linear-gradient(-45deg,#000000,rgba(255,171,1,255), #000000,rgba(255,171,1,255),#E73C7E);
+        /* background: linear-gradient(180deg, #EE7752,#E73C7E, #1478d0,#EE7752,#E73C7E ); */
+        /* background: -moz-linear-gradient(-45deg, rgb(233, 43, 9), rgb(240, 128, 0), #000000, rgba(255,171,1,255), #E73C7E);
         -moz-animation: myani 10s ease-out infinite; */
         background-size: 400% 400%;
-        /* color: aliceblue; */
+        /* color: aliceblue; darkorange*/
         /* text-shadow: 1px 1px 3px #1478d0; */
+    }
+
+    body.pink{
+        height: 100vh;
+        grid-column: 1 / 4;
+        background: -webkit-linear-gradient(90deg,#000000,pink, #000000, pink);
+        animation: myani 7s ease-out infinite;
+        background-size: 400% 400%;
     }
 }
 
@@ -348,6 +374,7 @@ input.button:focus {
 .link{
     text-decoration: none;
     color: black;
+    margin-left: 5px;
     display: inline-flex; /* display: flex */
     font-size: 35px;
     justify-content: center;
@@ -382,7 +409,7 @@ input.button:focus {
     font-size: 22px;
     font-style: oblique;
     white-space: nowrap;
-    border-right: 4px solid;
+    border-right: 3px solid; /* Espesor de la raya que titilea */
     width: 18ch; /* Tamaño de la frase (inicia desde 0) */
     animation: typing 3.5s steps(18), blink 0.5s step-end alternate;
     animation-iteration-count: infinite;  /* Repite la animación */
@@ -406,4 +433,59 @@ input.button:focus {
     50% {
         border-color: transparent; /* Da el efecto de titileo */
     }
+}
+
+@keyframes bounce {
+    0%   { transform: scale(1,1)      translateY(0); }
+    10%  { transform: scale(1.1,.9)   translateY(0); }
+    30%  { transform: scale(.9,1.1)   translateY(-7px); -webkit-transform: scale(.9,1.1)   translateY(-7px); -moz-transform: scale(.9,1.1)   translateY(-7px); -ms-transform: scale(.9,1.1)   translateY(-7px); -o-transform: scale(.9,1.1)   translateY(-7px); }
+    50%  { transform: scale(1.05,.95) translateY(0); }
+    57%  { transform: scale(1,1)      translateY(-1px); -webkit-transform: scale(1,1)      translateY(-1px); -moz-transform: scale(1,1)      translateY(-1px); -ms-transform: scale(1,1)      translateY(-1px); -o-transform: scale(1,1)      translateY(-1px); }
+    64%  { transform: scale(1,1)      translateY(0); }
+    100% { transform: scale(1,1)      translateY(0); }
+}
+
+#switch{
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    display: inline; /* or block*/
+    color: white;
+}
+
+.pink::after{
+    color: green;
+}
+
+.switch-mode {
+    display: inline-flex;
+    background: black;
+    border-radius: 1000px;
+    margin-left: 10px;
+    height: 30px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+}
+/* crea un pseudo-elemento (toggle switch) que es el último hijo del elemento seleccionado */
+.switch-mode::after {
+    content: '';
+    display: inline-flex; /* or block */
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    background: rgba(255,171,1,255);
+    top: 0;
+    left: 0;
+    right: unset;
+    border-radius: 100px;
+    transition: .5s ease all;
+    box-shadow: 0px 0px 2px 2px rgb(0 0 0 / 20%);
+}
+
+.switch-mode.switch-pink::after {
+    background-color: pink;
+    right: 0; /* right y left dan el efecto de switch */
+    left: auto; /* o unset */
 }

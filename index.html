@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="es">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <title>Challenge1 - Oracle Next Education</title>
         <link rel="stylesheet" href="./style.css" />
         <script src="https://kit.fontawesome.com/e3b7c6fac2.js" crossorigin="anonymous"></script> <!-- Necesita crear una cuenta -->
-
     </head>
 
-    <body class="d-md-flex flex-md-row">
+    <body class="d-md-flex flex-md-row" id="id-body">
         <div class="principal d-flex flex-column">
             <header>
-                <img src="images/logo.svg" class="logo"/>
+                <img src="images/logo.svg" class="logo" />
 
                 <a href="https://www.youtube.com/c/JuliantyScripting" target="_blank" class="link">
                     <i class="fa-brands fa-youtube"></i>
@@ -21,6 +20,11 @@
                 <a href="https://github.com/Julianty123" target="_blank" class="link">
                     <i class="fa-brands fa-github"></i>
                 </a>
+
+                <button class="switch-mode" id="switch-mode">
+                    <span id="switch"><i class="fa-solid fa-moon"></i></span>
+                    <span id="switch"><i class="fa-solid fa-sun"></i></span>
+                </button>
 
                 <span id="name">¡Hola, soy Julián!</span>
             </header>
@@ -34,15 +38,15 @@
                     <small>Solo letras minúsculas y sin acentos</small>
                 </div>
                 <div class="d-flex flex-column flex-sm-row">
-                    <input type="button" class="button flex-sm-grow" value="Codificar" onclick="uiCodificar()"/>
-                    <input type="button" class="button flex-sm-grow" value="Decodificar" onclick="uiDecodificar()"/>
+                    <input type="button" class="button flex-sm-grow" value="Codificar" onclick="uiCodificar()" />
+                    <input type="button" class="button flex-sm-grow" value="Decodificar" onclick="uiDecodificar()" />
                 </div>
             </div>
         </div>
         <div class="barra-lateral d-flex flex-column">
             <div class="info d-flex flex-column flex-grow">
                 <div class="info-img d-none d-md-block">
-                    <img src="images/muñeco.png"/>
+                    <img src="images/muñeco.png" />
                 </div>
                 <div class="info-txt my-auto">
                     <strong>Ningún mensaje fue encontrado</strong><br />
